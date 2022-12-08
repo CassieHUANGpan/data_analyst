@@ -18,7 +18,7 @@ where continent is not null
 order by 1,2
 
 -- Total cases vs. Total deaths
--- Shows the likelihood of dying of you get covid in a certain country
+-- Shows the likelihood of dying if you get covid in a certain country
 select location,date,total_cases,total_deaths,(total_deaths/total_cases)*100 as deathPercent
 from covid_death
 where location like '%China%'
