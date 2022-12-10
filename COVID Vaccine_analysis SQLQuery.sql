@@ -135,3 +135,17 @@ where d.continent is not null
 --order by d.location, d.date
 
 select * from RollingPeopleVaccinated
+
+
+--Shows the death rate by infection, vaccination rate, and hospital bed per 1000
+Create view Correlation_hospitalBed as
+select d.location, d.population, v.hospital_beds_per_thousand,
+max(total_deaths)/d.population*100 as death_rate
+,max(people_fully_vaccinated)/d.population*100 as vaccine_rate
+from covid_death d
+join covid_vaccination v
+    on d.location=v.location
+	and d.date=v.date
+where d.continent is not null
+group by d.location,d.population,v.hospital_beds_per_thousand
+--order by death_rate desc
