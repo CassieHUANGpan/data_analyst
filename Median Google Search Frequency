@@ -1,0 +1,15 @@
+Median Google Search Frequency [Google SQL Interview Question]
+
+  ---one of the method used to the situation where we need to caculate de total number of users and to find the values of the 2 middle numbers of user
+
+with ct as(SELECT searches, num_users,
+sum(num_users) over (ORDER BY searches) as s
+FROM search_frequency),
+ct2 as(
+SELECT searches, s,
+case WHEN s=(SELECT max(s) from ct)/2 or s=(SELECT max(s) from ct)/2+1 then searches
+else NULL
+END as new
+from ct)
+SELECT round(avg(new),1)
+from ct2
